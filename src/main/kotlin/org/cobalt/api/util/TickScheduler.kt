@@ -1,9 +1,10 @@
-package org.cobalt.api.util.helper
+package org.cobalt.api.util
 
-import java.util.*
 import org.cobalt.api.event.EventBus
 import org.cobalt.api.event.annotation.SubscribeEvent
 import org.cobalt.api.event.impl.TickEvent
+import java.util.Comparator
+import java.util.PriorityQueue
 
 object TickScheduler {
 

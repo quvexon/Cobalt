@@ -6,8 +6,8 @@ import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.VertexRendering
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
-import org.cobalt.api.util.render.RenderLayers
-import org.cobalt.api.util.render.WorldRenderContext
+import org.cobalt.api.event.impl.WorldRenderContext
+import org.cobalt.internal.util.render.RenderLayers
 import org.joml.Vector3f
 
 object Render2D {

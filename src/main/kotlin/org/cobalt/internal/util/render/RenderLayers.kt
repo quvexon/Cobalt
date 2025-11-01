@@ -1,10 +1,10 @@
-package org.cobalt.api.util.render
+package org.cobalt.internal.util.render
 
 import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.RenderLayer.MultiPhase
 import net.minecraft.client.render.RenderPhase
 
-object RenderLayers {
+internal object RenderLayers {
 
   val LINE_LIST: RenderLayer = RenderLayer.of(
     "line-list", RenderLayer.DEFAULT_BUFFER_SIZE,

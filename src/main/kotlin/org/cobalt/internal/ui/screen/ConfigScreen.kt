@@ -4,7 +4,7 @@ import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.text.Text
 import org.cobalt.Cobalt.mc
-import org.cobalt.api.util.helper.TickScheduler
+import org.cobalt.api.util.TickScheduler
 
 internal object ConfigScreen : Screen(Text.empty()) {
 
