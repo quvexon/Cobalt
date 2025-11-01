@@ -46,8 +46,11 @@ internal object ModuleManager {
     // Make all dumped classes visible to classloader
     val classLoader = ModuleManager::class.java.classLoader
     val addUrlMethod = classLoader::class.java.methods.first { it.name == "addUrlFwd" }
-    addUrlMethod.isAccessible = true
-    addUrlMethod.invoke(classLoader, ByteBasedStreamHandler.url)
+
+    addUrlMethod.let {
+      it.isAccessible = true
+      it.invoke(classLoader, ByteBasedStreamHandler.url)
+    }
 
     // Instantize modules from JSON file
     for (jsonBytes in modulesJsonBytes) {
