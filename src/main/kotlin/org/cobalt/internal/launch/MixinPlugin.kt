@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo
 class MixinPlugin : IMixinConfigPlugin {
 
   override fun onLoad(mixinPackage: String?) {
-    ModuleManager.loadModules()
     MixinExtrasBootstrap.init()
+    ModuleManager.loadModules()
   }
 
   override fun getRefMapperConfig(): String? = null
