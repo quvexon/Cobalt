@@ -2,18 +2,18 @@ package org.cobalt.internal.feat.rotation.strategy
 
 import net.minecraft.client.network.ClientPlayerEntity
 import org.cobalt.internal.feat.rotation.DefaultRotationConfig
-import org.cobalt.api.feat.rotation.RotationParameters
+import org.cobalt.internal.feat.rotation.DefaultRotationParameters
 import org.cobalt.internal.feat.rotation.RotationExecutor
 import org.cobalt.internal.feat.rotation.RotationStrategy
 
-class SimpleRotationStrategy : RotationStrategy {
+internal class SimpleRotationStrategy : RotationStrategy {
   override fun perform(
     yaw: Float,
     pitch: Float,
     player: ClientPlayerEntity,
-    parameters: RotationParameters,
+    parameters: DefaultRotationParameters,
   ) {
-    val config = DefaultRotationConfig
+    val config = DefaultRotationConfig()
 
     RotationExecutor.performRotation(
       yaw,

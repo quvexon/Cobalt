@@ -2,20 +2,20 @@ package org.cobalt.internal.feat.rotation.strategy
 
 import net.minecraft.client.network.ClientPlayerEntity
 import org.cobalt.internal.feat.rotation.DefaultRotationConfig
-import org.cobalt.api.feat.rotation.RotationParameters
 import org.cobalt.api.util.ChatUtils
+import org.cobalt.internal.feat.rotation.DefaultRotationParameters
 import org.cobalt.internal.feat.rotation.RotationExecutor
 import org.cobalt.internal.feat.rotation.RotationMath
 import org.cobalt.internal.feat.rotation.RotationStrategy
 
-class OvershootRotationStrategy : RotationStrategy {
+internal class OvershootRotationStrategy : RotationStrategy {
   override fun perform(
     yaw: Float,
     pitch: Float,
     player: ClientPlayerEntity,
-    parameters: RotationParameters,
+    parameters: DefaultRotationParameters,
   ) {
-    val config = DefaultRotationConfig
+    val config = DefaultRotationConfig()
     val calculatedParameters = RotationMath.calculateOvershootTargets(
       yaw,
       pitch,

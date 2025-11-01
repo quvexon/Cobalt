@@ -8,8 +8,12 @@ import org.cobalt.internal.feat.rotation.strategy.OvershootRotationStrategy
 import org.cobalt.internal.feat.rotation.strategy.SimpleRotationStrategy
 import kotlin.concurrent.thread
 import kotlin.random.Random
+import org.cobalt.api.util.ChatUtils
 
-object DefaultRotations : Rotation {
+internal object DefaultRotations : Rotation {
+  override val name: String
+    get() = "Default"
+
   @Volatile
   private var rotationThread: Thread? = null
   private val lock = Any()
@@ -27,9 +31,6 @@ object DefaultRotations : Rotation {
     return Random.nextDouble() < probability
   }
 
-  override val name: String
-    get() = "Default"
-
   override fun rotateTo(
     yaw: Float,
     pitch: Float,
@@ -37,6 +38,17 @@ object DefaultRotations : Rotation {
     parameters: RotationParameters,
   ) {
     stop()
+
+    if (!DefaultRotationConfig().validate()) {
+      ChatUtils.sendMessage("Invalid rotation config")
+      return
+    }
+
+    if (parameters !is DefaultRotationParameters) {
+      ChatUtils.sendMessage("Invalid rotation parameters. Please contact the cobalt developers about this!")
+      return
+    }
+
     val strategy: RotationStrategy =
       if (parameters.canOvershoot && shouldOvershoot(yaw, pitch, player)) OvershootRotationStrategy()
       else SimpleRotationStrategy()
