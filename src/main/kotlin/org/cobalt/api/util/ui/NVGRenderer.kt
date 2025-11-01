@@ -1,4 +1,4 @@
-package org.cobalt.util.ui
+package org.cobalt.api.util.ui
 
 import com.mojang.blaze3d.opengl.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
@@ -9,9 +9,9 @@ import java.nio.ByteBuffer
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.round
-import org.cobalt.util.helper.Font
-import org.cobalt.util.helper.Gradient
-import org.cobalt.util.helper.Image
+import org.cobalt.api.util.helper.Font
+import org.cobalt.api.util.helper.Gradient
+import org.cobalt.api.util.helper.Image
 import org.lwjgl.nanovg.NVGColor
 import org.lwjgl.nanovg.NVGPaint
 import org.lwjgl.nanovg.NanoSVG.*

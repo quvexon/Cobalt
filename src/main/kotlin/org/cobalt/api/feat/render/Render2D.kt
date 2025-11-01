@@ -1,4 +1,4 @@
-package org.cobalt.api.render
+package org.cobalt.api.feat.render
 
 import com.mojang.blaze3d.systems.RenderSystem
 import java.awt.Color
@@ -6,8 +6,8 @@ import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.VertexRendering
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
-import org.cobalt.util.render.RenderLayers
-import org.cobalt.util.render.WorldRenderContext
+import org.cobalt.api.util.render.RenderLayers
+import org.cobalt.api.util.render.WorldRenderContext
 import org.joml.Vector3f
 
 object Render2D {

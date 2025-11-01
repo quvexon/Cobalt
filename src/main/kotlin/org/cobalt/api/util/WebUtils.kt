@@ -1,4 +1,4 @@
-package org.cobalt.util
+package org.cobalt.api.util
 
 import java.io.InputStream
 import java.net.HttpURLConnection

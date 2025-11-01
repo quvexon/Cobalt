@@ -1,6 +1,6 @@
-package org.cobalt.util.helper
+package org.cobalt.api.util.helper
 
-import org.cobalt.util.setupConnection
+import org.cobalt.api.util.setupConnection
 import org.lwjgl.system.MemoryUtil
 import java.io.File
 import java.io.FileNotFoundException

@@ -1,4 +1,4 @@
-package org.cobalt.util.ui
+package org.cobalt.api.util.ui
 
 /**
  * Implementation from vexel by StellariumMC

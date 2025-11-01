@@ -1,4 +1,4 @@
-package org.cobalt.util
+package org.cobalt.api.util
 
 import kotlin.math.ceil
 import net.minecraft.util.math.BlockPos

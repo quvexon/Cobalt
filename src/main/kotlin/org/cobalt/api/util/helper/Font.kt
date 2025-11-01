@@ -1,4 +1,4 @@
-package org.cobalt.util.helper
+package org.cobalt.api.util.helper
 
 import java.io.FileNotFoundException
 import java.nio.ByteBuffer

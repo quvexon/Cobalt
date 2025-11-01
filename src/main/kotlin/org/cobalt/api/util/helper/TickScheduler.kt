@@ -1,4 +1,4 @@
-package org.cobalt.util.helper
+package org.cobalt.api.util.helper
 
 import java.util.*
 import org.cobalt.api.event.EventBus

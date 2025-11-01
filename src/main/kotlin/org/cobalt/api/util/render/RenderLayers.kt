@@ -1,4 +1,4 @@
-package org.cobalt.util.render
+package org.cobalt.api.util.render
 
 import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.RenderLayer.MultiPhase

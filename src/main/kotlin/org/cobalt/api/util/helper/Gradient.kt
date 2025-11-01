@@ -1,4 +1,4 @@
-package org.cobalt.util.helper
+package org.cobalt.api.util.helper
 
 /**
  * Implementation from OdinFabric by odtheking
