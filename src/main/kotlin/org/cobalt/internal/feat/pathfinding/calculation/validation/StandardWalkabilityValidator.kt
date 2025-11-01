@@ -8,7 +8,7 @@ import net.minecraft.world.World
 
 /**
  * Standard walkability validator for Minecraft
- * Checks that the floor is solid and the body/head spaces are passable
+ * Checks that the floor is solid and the body/headspaces are passable
  */
 internal class StandardWalkabilityValidator : IWalkabilityValidator {
 
@@ -56,7 +56,7 @@ internal class StandardWalkabilityValidator : IWalkabilityValidator {
             }
         }
 
-        // Head space must be passable
+        // Headspace must be passable
         if (!blockAtHead.isAir && blockAtHead.blocksMovement()) {
             return false
         }

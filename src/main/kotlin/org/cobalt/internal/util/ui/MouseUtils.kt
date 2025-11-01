@@ -1,4 +1,4 @@
-package org.cobalt.internal.ui
+package org.cobalt.internal.util.ui
 
 import org.cobalt.Cobalt.mc
 
