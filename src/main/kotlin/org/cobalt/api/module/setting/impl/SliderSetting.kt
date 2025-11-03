@@ -5,5 +5,7 @@ import org.cobalt.api.module.setting.Setting
 class SliderSetting(
   name: String,
   description: String,
-  defaultValue: Boolean
-) : Setting<Boolean>(name, description, defaultValue)
+  defaultValue: Double,
+  val min: Double,
+  val max: Double
+) : Setting<Double>(name, description, defaultValue)
