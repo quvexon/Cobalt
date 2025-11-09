@@ -1,26 +1,28 @@
 package org.cobalt.mixin.client;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.cobalt.api.event.impl.client.BlockChangeEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ClientPlayerInteractionManager.class)
-abstract class BreakBlock_ClientPlayerInteractionManagerMixin {
+@Mixin(World.class)
+abstract class MixinWorld {
     
-    @Inject(method = "breakBlock", at = @At("HEAD"))
-    private void onBlockBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        if (mc.world != null) {
-            BlockState oldBlock = mc.world.getBlockState(pos);
-            BlockState newBlock = Blocks.AIR.getDefaultState(); // id need to do a different mixin target to get new block, ill do that tmr (soon:tm:)
-            new BlockChangeEvent(pos, oldBlock, newBlock).post();
+    @Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z", at = @At("HEAD"))
+    private void onBlockChange(BlockPos pos, BlockState newState, int flags, int maxUpdateDepth, CallbackInfoReturnable<Boolean> cir) {
+        if (MinecraftClient.getInstance().world != (Object) this) {
+            return;
+        }
+        
+        BlockState oldBlock = ((World)(Object)this).getBlockState(pos);
+        
+        if (oldBlock.getBlock() != newState.getBlock()) {
+            new BlockChangeEvent(pos.toImmutable(), oldBlock, newState).post();
         }
     }
 }
