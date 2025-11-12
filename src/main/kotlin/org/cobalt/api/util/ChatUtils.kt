@@ -9,20 +9,21 @@ import net.minecraft.util.Formatting
 import org.cobalt.Cobalt.mc
 
 object ChatUtils {
+  @JvmStatic
   fun sendDebug(message: String) {
     mc.inGameHud.chatHud.addMessage(
       Text.empty().append(debugPrefix)
         .append(Text.literal("${Formatting.RESET}$message"))
     )
   }
-
+  @JvmStatic
   fun sendMessage(message: String) {
     mc.inGameHud.chatHud.addMessage(
       Text.empty().append(prefix)
         .append(Text.literal("${Formatting.RESET}$message"))
     )
   }
-
+  @JvmStatic
   fun buildGradient(text: String, startRgb: Int, endRgb: Int): MutableText {
     val result = Text.empty()
     val length = text.length
