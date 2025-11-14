@@ -137,6 +137,22 @@ object Loader {
         return Pair(addonId, loadedEntrypoints)
     }
 
+    fun unload() {
+        val startTime = System.currentTimeMillis()
+        ChatUtils.sendMessage("Unloading all addons!")
+
+        ModuleManager.clearModules()
+        
+        val currentJars = loadedAddons.keys.toSet()
+        currentJars.forEach { jarPath ->
+            unloadBackend(jarPath)
+        }
+        
+        val endTime = System.currentTimeMillis()
+        ChatUtils.sendMessage("Unload complete. Unloaded ${currentJars.size} addon(s) - took ${endTime - startTime}ms")
+        ConfigScreen.onReload()
+    }
+
     private fun AddonMetadata.main(): String {
         return entrypoints.firstOrNull() ?: classes.firstOrNull() ?: ""
     }
@@ -232,6 +248,10 @@ object Loader {
         val previousJars = loadedAddons.keys.toSet()
         val removedJars = previousJars - currentJars
 
+        previousJars.forEach { jarPath ->
+            unloadBackend(jarPath)
+        }
+
         currentJars.forEach { jarPath ->
             loadExternalAddon(jarPath)
         }
@@ -244,6 +264,35 @@ object Loader {
         val endTime = System.currentTimeMillis()
         ChatUtils.sendMessage("Reload complete. Active addons: ${getActiveAddonCount()} - took ${endTime - startTime}ms")
         ConfigScreen.onReload()
+    }
+
+    private fun unloadBackend(jarPath: Path) {
+        val addonInfo = loadedAddons[jarPath] ?: return
+        
+        try {
+            addonInfo.entrypoints.forEach { instance ->
+                try {
+                    val method = instance.javaClass.methods.find { it.name == "onUnload" }
+                    if (method != null) {
+                        method.invoke(instance)
+                        println("Called onUnload: ${instance.javaClass.name}")
+                    } else {
+                        println("No onUnload method found for: ${instance.javaClass.name}")
+                    }
+                } catch (e: Exception) {
+                    println("Failed to call onUnload on ${instance.javaClass.name}: ${e.message}")
+                    e.printStackTrace()
+                }
+            }
+            
+            loadedAddons[jarPath] = addonInfo.copy(loaded = false)
+            
+            println("Unloaded addon: ${jarPath.fileName}")
+            
+        } catch (e: Exception) {
+            println("Error unloading addon ${jarPath.fileName}: ${e.message}")
+            e.printStackTrace()
+        }
     }
 
     fun getLoadedAddons(): List<AddonInfo> = loadedAddons.values.toList()

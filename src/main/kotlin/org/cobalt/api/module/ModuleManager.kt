@@ -23,4 +23,8 @@ object ModuleManager {
     moduleList.clear()
   }
 
+  infix fun removeModule(module: Module) {
+    moduleList?.remove(module)
+  }
+
 }

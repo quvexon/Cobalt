@@ -27,4 +27,8 @@ object MainCommand : Command(
     org.cobalt.internal.loader.Loader.reload()
   }
 
+  @SubCommand
+  fun unload() {
+    org.cobalt.internal.loader.Loader.unload()
+  }
 }
