@@ -7,9 +7,9 @@ import org.cobalt.api.module.setting.Setting
 class CheckboxSetting(
   name: String,
   description: String,
-  subCategory: String,
+  subcategory: String,
   defaultValue: Boolean
-) : Setting<Boolean>(name, description, subCategory, defaultValue) {
+) : Setting<Boolean>(name, description, subcategory, defaultValue) {
 
   override fun read(element: JsonElement) {
     this.value = element.asBoolean

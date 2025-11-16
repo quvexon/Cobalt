@@ -10,11 +10,11 @@ import org.cobalt.api.module.setting.Setting
 class RangeSetting(
   name: String,
   description: String,
-  subCategory: String,
+  subcategory: String,
   private val defaultValue: Pair<Double, Double>,
   val min: Double,
   val max: Double
-) : Setting<Pair<Double, Double>>(name, description, subCategory, defaultValue) {
+) : Setting<Pair<Double, Double>>(name, description, subcategory, defaultValue) {
 
   override fun read(element: JsonElement) {
     if (element.isJsonObject) {
