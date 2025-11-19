@@ -41,19 +41,22 @@ dependencies {
   modImplementation("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
   modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
   modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:1.2.1")
-  
+
   modImplementation("org.lwjgl:lwjgl-nanovg:${lwjglVersion}")
   include("org.lwjgl:lwjgl-nanovg:${lwjglVersion}")
   listOf("windows", "linux", "macos", "macos-arm64").forEach {
     modImplementation("org.lwjgl:lwjgl-nanovg:${lwjglVersion}:natives-$it")
     include("org.lwjgl:lwjgl-nanovg:${lwjglVersion}:natives-$it")
   }
-  
+
   implementation("meteordevelopment:discord-ipc:1.1")
   include("meteordevelopment:discord-ipc:1.1")
-  
+
   dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.9.20")
   dokkaHtmlPlugin("org.jetbrains.dokka:versioning-plugin:1.9.20")
+
+  implementation("org.reflections:reflections:0.10.2")
+  include("org.reflections:reflections:0.10.2")
 }
 
 tasks {
@@ -64,7 +67,7 @@ tasks {
       expand(mutableMapOf("version" to project.version))
     }
   }
-  
+
   publishing {
     publications {
       create<MavenPublication>("mavenJava") {
@@ -77,7 +80,7 @@ tasks {
       }
     }
   }
-  
+
   compileKotlin {
     compilerOptions {
       jvmTarget = JvmTarget.JVM_21
@@ -89,7 +92,7 @@ tasks.dokkaHtml {
     outputDirectory.set(currentVersionDir)
     moduleName.set(project.name)
     moduleVersion.set(currentVersion)
-    
+
     pluginsMapConfiguration.set(
         mapOf(
             "org.jetbrains.dokka.versioning.VersioningPlugin" to """
@@ -101,25 +104,25 @@ tasks.dokkaHtml {
             """.trimIndent()
         )
     )
-    
+
     suppressObviousFunctions.set(true)
     suppressInheritedMembers.set(true)
-    
+
     dokkaSourceSets {
         named("main") {
             jdkVersion.set(21)
-            
+
             perPackageOption {
                 matchingRegex.set("org\\.cobalt\\.internal(\$|\\.).*")
                 suppress.set(true)
             }
-            
+
             sourceLink {
                 localDirectory.set(file("src/main/kotlin"))
                 remoteUrl.set(URI("https://github.com/CobaltScripts/Cobalt/blob/${getGitBranch()}/src/main/kotlin").toURL())
                 remoteLineSuffix.set("#L")
             }
-            
+
             externalDocumentationLink {
                 url.set(URI("https://docs.oracle.com/javase/8/docs/api/").toURL())
             }

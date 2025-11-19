@@ -19,12 +19,4 @@ object ModuleManager {
       .sortedBy { it }
   }
 
-  fun clearModules() {
-    moduleList.clear()
-  }
-
-  infix fun removeModule(module: Module) {
-    moduleList.remove(module)
-  }
-
 }

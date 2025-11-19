@@ -1,8 +1,11 @@
 package org.cobalt.api.event
 
-import java.util.concurrent.ConcurrentHashMap
 import java.lang.reflect.Method
+import java.util.concurrent.ConcurrentHashMap
 import org.cobalt.api.event.annotation.SubscribeEvent
+import org.reflections.Reflections
+import org.reflections.scanners.Scanners
+import org.reflections.util.ConfigurationBuilder
 
 object EventBus {
 
@@ -53,6 +56,39 @@ object EventBus {
     }
 
     return event
+  }
+
+  /** Thank you oblongboot for this superb function */
+  fun discoverAndRegister(packageStr: String, excludeFiles: Set<Class<*>> = emptySet()) {
+    val reflections = Reflections(
+      ConfigurationBuilder()
+        .forPackages(packageStr)
+        .setScanners(Scanners.MethodsAnnotated)
+    )
+
+    val methods = reflections.getMethodsAnnotatedWith(SubscribeEvent::class.java)
+    val seen = mutableSetOf<Class<*>>()
+
+    for (method in methods) {
+      val clazz = method.declaringClass
+      if (!seen.add(clazz) || clazz in excludeFiles) continue
+
+      try {
+        val instance = when {
+          clazz.declaredFields.any { it.name == "INSTANCE" } -> {
+            clazz.getDeclaredField("INSTANCE").apply { trySetAccessible() }.get(null)
+          }
+
+          else -> {
+            val constructor = clazz.getDeclaredConstructor()
+            constructor.trySetAccessible()
+            constructor.newInstance()
+          }
+        }
+
+        register(instance)
+      } catch (_: Exception) { }
+    }
   }
 
   private data class ListenerData(val instance: Any, val method: Method, val priority: Int)

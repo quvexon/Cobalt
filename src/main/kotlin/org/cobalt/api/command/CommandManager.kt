@@ -101,8 +101,4 @@ object CommandManager {
     }
   }
 
-  fun removeCommand(command: Command) {
-    commands.remove(command)
-  }
-
 }

@@ -6,16 +6,12 @@ import net.minecraft.client.util.math.MatrixStack
 import org.cobalt.api.event.Event
 
 abstract class WorldRenderEvent(val context: WorldRenderContext) : Event() {
-
   class Start(context: WorldRenderContext) : WorldRenderEvent(context)
   class Last(context: WorldRenderContext) : WorldRenderEvent(context)
-
 }
 
 class WorldRenderContext {
-
   var matrixStack: MatrixStack? = null
   lateinit var consumers: VertexConsumerProvider
   lateinit var camera: Camera
-
 }
