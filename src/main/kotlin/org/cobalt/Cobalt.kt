@@ -10,6 +10,8 @@ import org.cobalt.internal.command.MainCommand
 import org.cobalt.internal.feat.rpc.DiscordPresence
 import org.cobalt.internal.helper.Config
 import org.cobalt.internal.loader.AddonLoader
+import org.cobalt.api.event.impl.client.MouseEvent
+import org.cobalt.api.util.ChatUtils
 
 object Cobalt : ClientModInitializer {
 
@@ -34,8 +36,12 @@ object Cobalt : ClientModInitializer {
       DiscordPresence,
     ).forEach { EventBus.register(it) }
 
+    EventBus.registerEvent(
+      org.cobalt.api.event.impl.render.WorldRenderEvent.Last::class.java,
+      Runnable { ChatUtils.sendDebug("world render last detected!") }
+    )
+
     Config.loadModulesConfig()
     println("Cobalt Mod Initialized")
   }
-
 }
