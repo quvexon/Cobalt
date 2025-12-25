@@ -5,7 +5,7 @@ import java.io.File
 import org.cobalt.Cobalt
 import org.cobalt.api.module.ModuleManager
 
-internal object Config {
+object Config {
 
   private val gson = GsonBuilder().setPrettyPrinting().create()
   private val modulesFile = File(Cobalt.mc.runDirectory, "config/cobalt/modules.json")

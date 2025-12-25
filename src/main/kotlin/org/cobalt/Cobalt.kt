@@ -5,11 +5,13 @@ import net.minecraft.client.MinecraftClient
 import org.cobalt.api.addon.Addon
 import org.cobalt.api.command.CommandManager
 import org.cobalt.api.event.EventBus
+import org.cobalt.api.event.annotation.SubscribeEvent
+import org.cobalt.api.event.impl.render.WorldRenderEvent
 import org.cobalt.api.util.TickScheduler
-import org.cobalt.api.util.rotation.Rotation
+import org.cobalt.api.util.rotation.IRotationExec
 import org.cobalt.internal.command.MainCommand
-import org.cobalt.internal.feature.rotation.DefaultRotations
-import org.cobalt.internal.feature.rpc.DiscordPresence
+import org.cobalt.internal.rotation.RotationExec
+import org.cobalt.internal.rpc.DiscordPresence
 import org.cobalt.internal.helper.Config
 import org.cobalt.internal.loader.AddonLoader
 
@@ -38,19 +40,27 @@ object Cobalt : ClientModInitializer {
     ).forEach { EventBus.register(it) }
 
     Config.loadModulesConfig()
+    EventBus.register(this)
     println("Cobalt Mod Initialized")
   }
 
   @JvmStatic
-  private var rotationExec: Rotation = DefaultRotations
+  private var rotationExec: IRotationExec = RotationExec
+
+  @SubscribeEvent
+  fun onWorldRenderLast(event: WorldRenderEvent.Last) {
+    mc.player?.let {
+      rotationExec.onRotate(it)
+    }
+  }
 
   @JvmStatic
-  fun getRotationExec(): Rotation {
+  fun getRotationExec(): IRotationExec {
     return rotationExec
   }
 
   @JvmStatic
-  fun setRotationExec(rotationExec: Rotation) {
+  fun setRotationExec(rotationExec: IRotationExec) {
     this.rotationExec = rotationExec
   }
 

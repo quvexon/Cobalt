@@ -1,4 +1,4 @@
-package org.cobalt.internal.feature.rpc
+package org.cobalt.internal.rpc
 
 import meteordevelopment.discordipc.DiscordIPC
 import meteordevelopment.discordipc.RichPresence
@@ -6,7 +6,7 @@ import org.cobalt.Cobalt
 import org.cobalt.api.event.annotation.SubscribeEvent
 import org.cobalt.api.event.impl.client.TickEvent
 
-internal object DiscordPresence {
+object DiscordPresence {
 
   private val rpc: RichPresence = RichPresence()
   private var lastUpdate: Long = System.currentTimeMillis()

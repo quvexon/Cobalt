@@ -2,7 +2,7 @@ package org.cobalt.internal.ui.util
 
 import java.awt.Color
 
-internal object Constants {
+object Constants {
 
   /** Dimensions for main frame */
   const val BASE_WIDTH = 736F

@@ -2,7 +2,7 @@ package org.cobalt.internal.ui.animation
 
 import kotlin.math.pow
 
-internal class EaseInOutAnimation(duration: Long) : Animation<Float>(duration) {
+class EaseInOutAnimation(duration: Long) : Animation<Float>(duration) {
 
   override fun get(start: Float, end: Float, reverse: Boolean): Float {
     if (!isAnimating()) return if (reverse) start else end

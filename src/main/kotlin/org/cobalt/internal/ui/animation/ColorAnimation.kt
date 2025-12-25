@@ -2,7 +2,7 @@ package org.cobalt.internal.ui.animation
 
 import java.awt.Color
 
-internal class ColorAnimation(duration: Long) {
+class ColorAnimation(duration: Long) {
 
   private val anim = EaseOutAnimation(duration)
 
@@ -19,4 +19,5 @@ internal class ColorAnimation(duration: Long) {
       anim.get(start.blue.toFloat(), end.blue.toFloat(), reverse) / 255,
       anim.get(start.alpha.toFloat(), end.alpha.toFloat(), reverse) / 255,
     )
+
 }

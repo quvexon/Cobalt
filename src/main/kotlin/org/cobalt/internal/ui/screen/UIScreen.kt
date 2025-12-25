@@ -12,7 +12,7 @@ import org.cobalt.internal.helper.Config
 import org.cobalt.internal.ui.animation.EaseInOutAnimation
 import org.cobalt.internal.ui.util.Constants
 
-internal object UIScreen : Screen(Text.empty()) {
+object UIScreen : Screen(Text.empty()) {
 
   /** Needed for opening animation */
   private val openAnim = EaseInOutAnimation(400)
