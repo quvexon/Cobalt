@@ -1,4 +1,4 @@
-package org.cobalt.api.rotation
+package org.cobalt.api.util.rotation
 
 import net.minecraft.client.network.ClientPlayerEntity
 
