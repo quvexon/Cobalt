@@ -32,8 +32,6 @@ Contributions are welcome and appreciated.
 
 [Nebula Client](https://nebulaclient.net) - UI design
 
-[FarmHelper](https://github.com/JellyLabScripts/FarmHelper) - GitHub Workflow
-
 [Odin](https://github.com/odtheking/Odin) - Settings System
 
 [Odin-Fabric](https://github.com/odtheking/OdinFabric) and [Vexel](https://github.com/StellariumMC/vexel) - NanoVG Implementation
