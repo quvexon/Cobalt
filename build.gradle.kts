@@ -41,7 +41,6 @@ dependencies {
   modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
   modImplementation("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
   modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
-  modImplementation("dev.quiteboring:swift:1.0.0")
 
   modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:1.2.1")
 
