@@ -18,6 +18,12 @@
 > [!WARNING]
 > The project includes early implementations of a UI system, a pathfinder, and a path executor. These components are **work-in-progress** and not yet feature-complete, but they serve as a foundation for future development and community contributions.
 
+> [!NOTE]
+> This project was made possible thanks to:
+> - [Nebula Client](https://nebulaclient.net) (UI Design)
+> - [Odin](https://github.com/odtheking/Odin) (Settings System)
+> - [Odin-Fabric](https://github.com/odtheking/OdinFabric) & [Vexel](https://github.com/StellariumMC/vexel) (NanoVG Implementation)
+
 ## About The Project
 
 Cobalt is an open-source Minecraft Fabric project focused on providing a modular scripting and automation framework with an emphasis on extensibility. It is designed to be easy to experiment with, extend through addons, and adapt to different use cases without locking users into a rigid structure.
@@ -33,14 +39,6 @@ Contributions are welcome and appreciated.
 3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-## Credits
-
-[Nebula Client](https://nebulaclient.net) - UI design
-
-[Odin](https://github.com/odtheking/Odin) - Settings System
-
-[Odin-Fabric](https://github.com/odtheking/OdinFabric) and [Vexel](https://github.com/StellariumMC/vexel) - NanoVG Implementation
 
 ## License
 
