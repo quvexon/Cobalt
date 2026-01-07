@@ -2,8 +2,10 @@ package org.cobalt.api.util.render
 
 import com.mojang.blaze3d.systems.RenderSystem
 import java.awt.Color
+import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.sin
 import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.VertexRendering
 import net.minecraft.util.math.Box
@@ -53,6 +55,44 @@ object Render3D {
     bufferSource.draw(lineLayer)
   }
 
+  fun drawBoxOutlined(
+    context: WorldRenderContext,
+    box: Box,
+    color: Color,
+    esp: Boolean = false,
+    thickness: Float = 2f
+  ) {
+    if (!FrustumUtils.isVisible(context.frustum, box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ)) {
+      return
+    }
+
+    val matrix = context.matrixStack ?: return
+    val bufferSource = context.consumers as? VertexConsumerProvider.Immediate ?: return
+
+    val r = color.red / 255f
+    val g = color.green / 255f
+    val b = color.blue / 255f
+    val a = color.alpha / 255f
+
+    val lineLayer = if (esp) RenderLayers.LINE_LIST_ESP else RenderLayers.LINE_LIST
+
+    RenderSystem.lineWidth(thickness)
+
+    matrix.push()
+    with(context.camera.pos) { matrix.translate(-x, -y, -z) }
+
+    VertexRendering.drawBox(
+      matrix.peek(),
+      bufferSource.getBuffer(lineLayer),
+      box.minX, box.minY, box.minZ,
+      box.maxX, box.maxY, box.maxZ,
+      r, g, b, a
+    )
+
+    matrix.pop()
+    bufferSource.draw(lineLayer)
+  }
+
   fun drawLine(
     context: WorldRenderContext,
     start: Vec3d,
@@ -90,4 +130,43 @@ object Render3D {
     bufferSource.draw(layer)
   }
 
+  fun drawRing(
+    context: WorldRenderContext,
+    center: Vec3d,
+    radius: Double,
+    color: Color,
+    axis: Axis = Axis.Y,
+    segments: Int = 64,
+    esp: Boolean = false,
+    thickness: Float = 2f
+  ) {
+    val angleStep = Math.PI * 2.0 / segments
+
+    for (i in 0 until segments) {
+      val angle1 = angleStep * i
+      val angle2 = angleStep * ((i + 1) % segments)
+
+      val (x1, y1, z1) = when (axis) {
+        Axis.X -> Triple(0.0, cos(angle1) * radius, sin(angle1) * radius)
+        Axis.Y -> Triple(cos(angle1) * radius, 0.0, sin(angle1) * radius)
+        Axis.Z -> Triple(cos(angle1) * radius, sin(angle1) * radius, 0.0)
+      }
+
+      val (x2, y2, z2) = when (axis) {
+        Axis.X -> Triple(0.0, cos(angle2) * radius, sin(angle2) * radius)
+        Axis.Y -> Triple(cos(angle2) * radius, 0.0, sin(angle2) * radius)
+        Axis.Z -> Triple(cos(angle2) * radius, sin(angle2) * radius, 0.0)
+      }
+
+      val start = center.add(x1, y1, z1)
+      val end = center.add(x2, y2, z2)
+
+      drawLine(context, start, end, color, esp, thickness)
+    }
+  }
+
+
+  enum class Axis {
+    X, Y, Z
+  }
 }
